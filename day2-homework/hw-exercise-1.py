@@ -8,8 +8,10 @@ for i, line in enumerate(sys.stdin): #enumerate allows us to loop over something
     if "_DROME" not in line:
         continue
     fields = line.strip("\r\n").split()
-    if len(fields) <4:
+    if fields[-1].startswith(FBgn):
         continue
+    #if len(fields) <4:
+        #continue
     # strip removes \r=return characters, \n new line characters
     # .split will split by tabs \t
 # THIS IS STANDARD FOR ALL TABULAR SORTING/FINDING
