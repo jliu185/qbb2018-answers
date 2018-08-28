@@ -16,7 +16,7 @@ for i, line in enumerate( f ):
         continue
     fields = line.strip("\r\n").split("\t") 
     c_list.append(fields[2])
-    if len(c_list) > 10:
+    if len(c_list) >= 10:
         print (c_list)
         break
 
