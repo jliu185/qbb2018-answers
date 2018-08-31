@@ -33,8 +33,8 @@ transcript = 'FBtr0331261'
 
 fpkm_f = timecourse('female', df1)
 fpkm_m = timecourse('male', df1)
-fpkm_rep_f = [0,0,0,0] + timecourse('female', df2) 
-fpkm_rep_m = [0,0,0,0] + timecourse('male', df2)
+fpkm_rep_f = [None,None,None,None] + timecourse('female', df2) 
+fpkm_rep_m = [None,None,None,None] + timecourse('male', df2)
 
 # plotting 
 fig, ax = plt.subplots()
