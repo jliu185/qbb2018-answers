@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Usage: ./03-boxplot.py <samples tsv> <ctab.dir>
+Usage: ./03-boxplot.py <samples tsv> <ctab.dir> <replicates.csv>
 
 Create a timecourse of a given transcript (FBtr0331261) for females
 
@@ -12,9 +12,6 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-
-df = pd.read_csv(sys.argv[1])
-transcript = 'FBtr0331261'
 
 def timecourse(gender, df):
     fpkms = []
@@ -27,15 +24,24 @@ def timecourse(gender, df):
         fpkms.append(ctab_df.loc[transcript,"FPKM"])
     return fpkms
 
-fpkm_f = timecourse('female', df)
-fpkm_m = timecourse('male', df)
+
+df1 = pd.read_csv(sys.argv[1])
+df2 = pd.read_csv(sys.argv[3])
+
+transcript = 'FBtr0331261'
+
+
+fpkm_f = timecourse('female', df1)
+fpkm_m = timecourse('male', df1)
+fpkm_rep_f = [0,0,0,0] + timecourse('female', df2) 
+fpkm_rep_m = [0,0,0,0] + timecourse('male', df2)
 
 # plotting 
 fig, ax = plt.subplots()
 ax.plot(fpkm_f, color='red', label = 'female')
 ax.plot(fpkm_m, color='blue',label = 'male')
-
-
+ax.plot(fpkm_rep_f, color='green', label = 'rep female')
+ax.plot(fpkm_rep_m, color='yellow',label = 'rep male')
 plt.xlabel('developmantal stage')
 plt.ylabel('mRNA abundance (RPKM)')
 plt.title('Sxl', style='italic', fontsize='20')
