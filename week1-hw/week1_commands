@@ -1,0 +1,13 @@
+blastn -query week1_query.fa -db nr -remote -outfmt "6 sseqid sseq" -evalue .0001 -num_alignments 1000 -out query_1000
+
+./tsv_fasta.py query_1000.out > query_1000.fa
+
+transeq query_1000.fa query_1000_pep.fa
+
+mafft query_1000_pep.fa > query_1000_pep_align.fa
+
+./pep_nuc_parser.py query_1000.fa query_1000_pep_align.fa | less –S
+
+./03-dN_dS nucleotide_sequence_withgaps.fa
+
+
