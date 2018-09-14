@@ -1,0 +1,10 @@
+time velveth ~/qbb2018-answers/week2-hw/velvet 15 -shortPaired -fastq ~/qbb2018-answers/week2-hw/reads_low_1.fastq ~/qbb2018-answers/week2-hw/reads_low_2.fastq 
+
+time velvetg velvet
+
+time spades.py -1 reads_low_1.fastq -2 reads_low_2.fastq -o ~/qbb2018-answers/week2-hw/spades
+
+./comp_contig.py ~/qbb2018-answers/week2-hw/velvet/contigs.fa
+OR
+./comp_contig.py ~/qbb2018-answers/week2-hw/spades/contigs.fasta
+ 
