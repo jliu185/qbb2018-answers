@@ -6,8 +6,8 @@ transeq query_1000.fa query_1000_pep.fa
 
 mafft query_1000_pep.fa > query_1000_pep_align.fa
 
-./pep_nuc_parser.py query_1000.fa query_1000_pep_align.fa | less –S
+./pep_nuc_parser.py query_1000.fa query_1000_pep_align.fa 
 
-./03-dN_dS nucleotide_sequence_withgaps.fa
+./dN_dS.py query_1000.fa query_1000_pep_align.fa  
 
 
