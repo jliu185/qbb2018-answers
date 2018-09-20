@@ -1,0 +1,18 @@
+time velveth ~/qbb2018-answers/week2-hw/velvet 15 -shortPaired -fastq ~/qbb2018-answers/week2-hw/reads_low_1.fastq ~/qbb2018-answers/week2-hw/reads_low_2.fastq 
+
+time velvetg velvet
+
+time spades.py -1 reads_low_1.fastq -2 reads_low_2.fastq -o ~/qbb2018-answers/week2-hw/spades
+
+time spades.py -1 reads_low_1.fastq -2 reads_low_2.fastq --nanopore MAP006.subset.fa -o ./spades_nanopore
+
+./comp_contig.py ~/qbb2018-answers/week2-hw/velvet/contigs.fa
+OR
+./comp_contig.py ~/qbb2018-answers/week2-hw/spades/contigs.fasta
+ 
+lastz reference.fasta ./velvet/contigs.fa --format=general:zstart1,end1,name2 --chains -–output=velvet_low_reads_lastz.out
+
+sort -k 1 -n velvet_low_reads_lastz.out > velvet_low_reads_lastz_sorted.out
+
+./dotplot_gen.py <sort outfile> <graph title name>
+
