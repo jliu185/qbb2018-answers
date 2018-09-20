@@ -1,6 +1,0 @@
-- "left reads":
-  - "/Users/cmdb/qbb2018-answers/week2-hw/reads_low_1.fastq"
-  "orientation": "fr"
-  "right reads":
-  - "/Users/cmdb/qbb2018-answers/week2-hw/reads_low_2.fastq"
-  "type": "paired-end"
