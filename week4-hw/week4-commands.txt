@@ -1,0 +1,67 @@
+# Notes from class
+REVIEW OF WHAT WE DID LAST WEEK
+	Sequencing data -> Aligned with reference sequence -> Variant calling -> Predicted effects
+COMMON DISEASE-COMMON VARIANT HYPOTHESIS
+	Multiple alleles that will contribute to a common disease
+		variants have low penetrance
+		Evolutionary neutral
+	This week, instead of predicting theses effects, we will try to associate 	these variants with a disease 
+WTCCC
+	Look at 14k people (controls included), associate with 7 common diseases
+ENCODING FOR VARIANT AND PHENOTYPE
+	EXAMPLE
+		Ref: A 
+		Alt: T
+		Variant: [genotype AA AT TT]
+			     [          0  1  2]
+				 [Allele    A   T  ]
+		**Can use "cochran armitage" to look at genotype, needs to be a 3 by 2 		table**
+		**2 x 2 table, can use a Chi squared statistical model**
+		
+		Phenotype: [Case control Y N]
+		           [Quantitative    ]
+		**Can use a regression + Wards test**
+	Need to account for implicit variance in your sample when creating a p-value
+MULTIPLE TESTING
+	Need to alter your P-value
+	FWER (Family wise error)
+		alpha = 0.001
+		m = # of tests 
+		p = alpha / m (Bonferroni correction)
+	False discovery rate 
+		alpha = 0.001
+		K = False discovery rate (%, chosen by you)
+		Rank order P-values
+			p < alpha * (K/m) (Benjamini-Hochberg)
+	P < 5*10^-7
+		What we will be using today in class
+_________________________________________________________________________________		
+
+# Making PCA analysis
+plink --vcf BYxRM_segs_saccer3.bam.simplified.vcf --pca 2 --allow-extra-chr --mind 
+
+./PCA-plot.py plink.eigenvec
+
+# Making allele frequency distribution
+./all-freq.py BYxRM_segs_saccer3.bam.simplified.vcf 
+
+# GWAS pheno must be a single phenotype 
+wget http://67.207.142.119/outgoing/BYxRM_PhenoData.txt
+
+# Create tab separated file for manhattan plot python code
+awk 'NR>1''{gsub ("_","\t")}{print}' BYxRM_PhenoData.txt > pheno.txt
+
+# Create quantitative association testing for all phenotypes and p-values
+plink --vcf BYxRM_segs_saccer3.bam.simplified.vcf --pheno pheno.txt --assoc --allow-no-sex --mind --allow-extra-chr --all-pheno
+
+# Manhattan plot
+./manhattan.py plink.#.qassocc P#_Manhattan_plot
+
+
+
+
+
+
+
+
+
