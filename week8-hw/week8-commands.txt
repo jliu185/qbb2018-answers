@@ -1,0 +1,21 @@
+# Prepping the environment and downloading the correct files
+gunzip motif_databases.12.18.tgz
+
+# Sort top results from ChIP seq results
+sort -k 9 -n -r ER4_peaks.narrowPeak | head -n 100 > 100topchip.narrow.peak
+
+#Preps for bedtools
+samtools faidx chr19.fa
+
+# Getting DNA motif sequences
+bedtools getfasta -fi chr19.fa -bed 100topchip.narrow.peak > ER4_fasta_meme_100.fa
+
+# Creating MEME
+meme-chip -db motif_databases/JASPAR/JASPAR_CORE_2016_vertebrates.meme -meme-maxw 20 ER4_fasta_meme_100.fa
+
+# Creating a density plot 
+bedtools intersect -a /Users/cmdb/qbb2018-answers/week8-hw/memechip_out/fimo_out_1/fimo.gff -b 100topchip.narrow.peak -wa -wb > alignpos.bed
+
+./week8-plot.py alignpos.bed
+
+
