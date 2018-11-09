@@ -1,0 +1,27 @@
+# Prepping the environment and downloading the ocrrect files
+tar -x -J -f g1e.tar.xz
+gunzip chr19.fa.gz
+conda create -n macs2 macs2
+source activate macs2
+
+# build chromosome 19 index
+bowtie2-build chr19.fa chr19_ind
+
+# align reads
+bowtie2 -p 4 -x index/chr19_ind input_ER4.fastq > input_ER4.sam
+bowtie2 -p 4 -x index/chr19_ind input_G1E.fastq > input_G1E.sam
+bowtie2 -p 4 -x index/chr19_ind CTCF_ER4.fastq > CTCF_ER4.sam
+bowtie2 -p 4 -x index/chr19_ind CTCF_G1E.fastq > CTCF_G1E.sam
+
+# call peaks
+macs2 callpeak -t CTCF_G1E.sam -c input_G1E.sam -g 61431566 -n G1E
+macs2 callpeak -t CTCF_ER4.sam -c input_ER4.sam -g 61431566 -n ER4
+
+# find lost peaks going from G1E --> ER4 cells
+bedtools intersect -a G1E_peaks.narrowPeak -b ER4_peaks.narrowPeak -v > diff_lost_peaks.bed
+
+# find gained peaks going from G1E --> ER4 cells
+bedtools intersect -a ER4_peaks.narrowPeak -b G1E_peaks.narrowPeak -v > diff_gained_peaks.bed
+
+# Create plot
+./week6-plot.py diff_gained_peaks.bed diff_lost_peaks.bed Mus_muculus.GRCm38.94_features.bed
