@@ -1,0 +1,4 @@
+Alas2 is a gene that is highly upregulated in late stage Mus musculus. 
+Alas2 is known as a class II aminotransferase that encodes for 5-Aminolevulinate Synthase, and is involved in lipid metabolic process. 
+Alas2 functions as an erythroid-specific mitochondrially located enzyme. 
+This genes role is most likely to initiate erythroid cell differentiation in organisms.  
