@@ -1,0 +1,7 @@
+hifive hic-complete express -B example.bed -M example.mat -f 25 -n 50 -i 0 -d -P week13
+
+hifive hic-heatmap -t -b 500000 -d fend -F npz -i hi-c-map_1.png week13.hcp week13.npz
+
+hifive hic-interval -c chr17 -s 15000000 -e 17500000 -b 10000 -i week13-interval.png -q week13.hcp week13-interval.out
+
+ctcf.py GSM2418860_WT_CTCF_peaks.txt > week13_gen_pos.txt
